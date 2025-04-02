@@ -1,0 +1,459 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lord Baby</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background-color: #121212;
+            color: #f5f5f5;
+        }
+        
+        .header {
+            background-color: #1e1e1e;
+            padding: 20px 0;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
+        }
+        
+        .container {
+            width: 90%;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        .nav-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .logo {
+            color: #ff6b6b;
+            font-size: 28px;
+            font-weight: 700;
+            text-decoration: none;
+            text-shadow: 0 0 5px rgba(255, 107, 107, 0.3);
+        }
+        
+        .logo span {
+            color: #4ecdc4;
+        }
+        
+        .nav-menu {
+            display: flex;
+            list-style: none;
+        }
+        
+        .nav-item {
+            margin-left: 20px;
+        }
+        
+        .nav-link {
+            color: #f5f5f5;
+            text-decoration: none;
+            font-weight: 500;
+            padding: 8px 15px;
+            border-radius: 4px;
+            transition: all 0.3s ease;
+        }
+        
+        .nav-link:hover {
+            background-color: #ff6b6b;
+            color: #fff;
+        }
+        
+        .banner {
+            background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), url('/api/placeholder/1200/400') center/cover;
+            height: 400px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            margin-bottom: 40px;
+        }
+        
+        .banner-text h1 {
+            font-size: 50px;
+            color: #fff;
+            margin-bottom: 20px;
+            text-shadow: 0 0 10px rgba(0, 0, 0, 0.8);
+        }
+        
+        .banner-text p {
+            font-size: 18px;
+            color: #ddd;
+            margin-bottom: 30px;
+        }
+        
+        .btn {
+            display: inline-block;
+            background-color: #ff6b6b;
+            color: #fff;
+            padding: 10px 25px;
+            border-radius: 5px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+        
+        .btn:hover {
+            background-color: #ff5252;
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(255, 107, 107, 0.4);
+        }
+        
+        .games-section {
+            padding: 40px 0;
+        }
+        
+        .section-title {
+            font-size: 24px;
+            color: #ff6b6b;
+            margin-bottom: 30px;
+            position: relative;
+            padding-left: 15px;
+        }
+        
+        .section-title::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 0;
+            height: 100%;
+            width: 5px;
+            background-color: #ff6b6b;
+        }
+        
+        .games-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            gap: 20px;
+        }
+        
+        .game-card {
+            background-color: #1e1e1e;
+            border-radius: 8px;
+            overflow: hidden;
+            transition: all 0.3s ease;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+            position: relative;
+        }
+        
+        .game-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.4);
+        }
+        
+        .game-img {
+            width: 100%;
+            height: 160px;
+            object-fit: cover;
+        }
+        
+        .game-info {
+            padding: 15px;
+        }
+        
+        .game-title {
+            font-size: 16px;
+            margin-bottom: 8px;
+        }
+        
+        .game-category {
+            color: #4ecdc4;
+            font-size: 14px;
+            margin-bottom: 10px;
+        }
+        
+        .download-btn {
+            display: block;
+            background-color: #4ecdc4;
+            color: #fff;
+            text-align: center;
+            padding: 8px 0;
+            border-radius: 4px;
+            text-decoration: none;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+        
+        .download-btn:hover {
+            background-color: #36b7ad;
+        }
+        
+        /* Estilos para el menú de opciones de descarga */
+        .download-options {
+            display: none;
+            position: absolute;
+            bottom: 60px;
+            left: 15px;
+            right: 15px;
+            background-color: #292929;
+            border-radius: 8px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.5);
+            z-index: 10;
+            overflow: hidden;
+        }
+        
+        .download-option {
+            display: block;
+            padding: 10px 15px;
+            color: #f5f5f5;
+            text-decoration: none;
+            font-size: 14px;
+            border-bottom: 1px solid #333;
+            transition: background-color 0.3s;
+        }
+        
+        .download-option:last-child {
+            border-bottom: none;
+        }
+        
+        .download-option:hover {
+            background-color: #333;
+        }
+        
+        .download-option small {
+            display: block;
+            color: #aaa;
+            font-size: 12px;
+            margin-top: 3px;
+        }
+        
+        .download-note {
+            padding: 8px 15px;
+            font-size: 12px;
+            color: #aaa;
+            background-color: #222;
+            text-align: center;
+        }
+                        
+        .footer {
+            background-color: #1e1e1e;
+            padding: 40px 0 20px;
+            margin-top: 40px;
+        }
+        
+        .footer-content {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+        }
+        
+        .footer-section {
+            flex: 1;
+            min-width: 200px;
+            margin-bottom: 20px;
+        }
+        
+        .footer-title {
+            font-size: 18px;
+            color: #ff6b6b;
+            margin-bottom: 20px;
+        }
+        
+        .footer-links {
+            list-style: none;
+        }
+        
+        .footer-link {
+            margin-bottom: 10px;
+        }
+        
+        .footer-link a {
+            color: #ccc;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+        
+        .footer-link a:hover {
+            color: #ff6b6b;
+        }
+        
+        .copyright {
+            text-align: center;
+            padding-top: 20px;
+            border-top: 1px solid #333;
+            margin-top: 20px;
+            color: #777;
+        }
+        
+        /* Responsive */
+        @media (max-width: 768px) {
+            .nav-container {
+                flex-direction: column;
+            }
+            
+            .nav-menu {
+                margin-top: 20px;
+                flex-wrap: wrap;
+                justify-content: center;
+            }
+            
+            .nav-item {
+                margin: 5px;
+            }
+            
+            .banner-text h1 {
+                font-size: 36px;
+            }
+            
+            .games-grid {
+                grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+            }
+        }
+    </style>
+</head>
+<body>
+    
+    <!-- Banner -->
+    <section class="banner">
+        <div class="banner-text">
+            <h1>Lord Baby Games</h1>
+            <p>Tu portal de confianza para descargar los mejores juegos</p>
+        </div>
+    </section>
+    
+    <!-- Main Content -->
+    <main class="container">
+        <!-- Featured Games -->
+        <section class="games-section">
+            <h2 class="section-title">Juegos totales</h2>
+            <div class="games-grid">
+                <!-- Game 1 - GTA V -->
+                <div class="game-card">
+                    <img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEgm5-wcL9FOXFFT0alGbDjEGMghJKw7oZHXD7oL8t7XvCoh7nKvb21Yd-yEURMTk_4iPjU-948yBs1Rp7-wBI45Pbe9xGeLmAvq3dQ9fpyxmlWRcH3FVNVeFtwq_v-s8MjA42iblEoooY9xqbxQFHLEEFdzOqYL48sRp5-7Hj8gu6aSfbRLDbkQfSqeybGU/s700/GTA%20V%20Lite%20Portada.jpg" alt="GTA V" class="game-img">
+                    <div class="game-info">
+                        <h3 class="game-title">GTA V</h3>
+                        <p class="game-category">Acción / Mundo Abierto</p>
+                        <a class="download-btn" onclick="toggleDownloadOptions('gtav')">Descargar</a>
+                    </div>
+                </div>
+                
+                <!-- Game 2 - Left 4 Dead 2 -->
+                <div class="game-card">
+                    <img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEi93pHlo3VVuNiObq3PihNbSB4R99goDrsDpMSS64ObXC6JaZli6hHEx1Xi0eWOavBGHZN3SqckXVzaZVE3bQsxOIJQV8NxveZxVj_GYzsYoSoJHH2BDUZiLQlHFHB4OSDSReWRhBEs-AAVejvuOoXEf6vjqHNu_3mriSYYk2eIiTZoctLpBbRZw1kSqsI1/s700/Left%204%20Dead%201%20Portada.jpg" alt="Left 4 Dead 2" class="game-img">
+                    <div class="game-info">
+                        <h3 class="game-title">Left 4 Dead 2</h3>
+                        <p class="game-category">FPS / Survival Horror / Cooperativo</p>
+                        <a class="download-btn" onclick="toggleDownloadOptions('l4d2')">Descargar</a>
+                        
+                        <!-- Opciones de descarga para Left 4 Dead 2 -->
+                        <div class="download-options" id="l4d2-options">
+                            <a href="https://www.mediafire.com/file/z6h5hg7jiwo75ij/Left+4+Dead+2.part1.rar/file" class="download-option" target="_blank">
+                                Parte 1
+                                <small>(1.5 GB - MediaFire)</small>
+                            </a>
+                            <a href="https://www.mediafire.com/file/6qjj171w9wsr2az/Left+4+Dead+2.part2.rar/file" class="download-option" target="_blank">
+                                Parte 2
+                                <small>(1.3 GB - MediaFire)</small>
+                            </a>
+                            <div class="download-note">
+                                * Necesitas ambas partes para instalar
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Game 3 -->
+                <div class="game-card">
+                    <img src="/api/placeholder/300/160" alt="Call of Duty: Warzone" class="game-img">
+                    <div class="game-info">
+                        <h3 class="game-title">Call of Duty: Warzone</h3>
+                        <p class="game-category">FPS / Battle Royale</p>
+                        <a href="#" class="download-btn">Descargar</a>
+                    </div>
+                </div>
+                
+                <!-- Game 4 -->
+                <div class="game-card">
+                    <img src="/api/placeholder/300/160" alt="Minecraft" class="game-img">
+                    <div class="game-info">
+                        <h3 class="game-title">Minecraft</h3>
+                        <p class="game-category">Supervivencia / Sandbox</p>
+                        <a href="#" class="download-btn">Descargar</a>
+                    </div>
+                </div>
+                
+                <!-- Game 5 -->
+                <div class="game-card">
+                    <img src="/api/placeholder/300/160" alt="Resident Evil 4 Remake" class="game-img">
+                    <div class="game-info">
+                        <h3 class="game-title">Resident Evil 4 Remake</h3>
+                        <p class="game-category">Terror / Supervivencia</p>
+                        <a href="#" class="download-btn">Descargar</a>
+                    </div>
+                </div>
+                
+                <!-- Game 6 -->
+                <div class="game-card">
+                    <img src="/api/placeholder/300/160" alt="Fortnite" class="game-img">
+                    <div class="game-info">
+                        <h3 class="game-title">Fortnite</h3>
+                        <p class="game-category">Battle Royale</p>
+                        <a href="#" class="download-btn">Descargar</a>
+                    </div>
+                </div>
+            </div>
+        </section>
+          
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3 class="footer-title">Lord Baby</h3>
+                    <p>Tu portal de descargas de juegos de confianza desde 2025. Ofrecemos contenido de calidad y actualizaciones constantes.</p>
+                    </ul>
+                </div>
+            </div>
+            <div class="copyright">
+                <p>&copy; 2025 Lord Baby - Todos los derechos reservados</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Función para mostrar/ocultar opciones de descarga
+        function toggleDownloadOptions(gameId) {
+            // Oculta todos los menús primero
+            document.querySelectorAll('.download-options').forEach(menu => {
+                menu.style.display = 'none';
+            });
+            
+            // Muestra el menú correspondiente
+            const options = document.getElementById(`${gameId}-options`);
+            if (options.style.display === 'block') {
+                options.style.display = 'none';
+            } else {
+                options.style.display = 'block';
+            }
+            
+            // Cierra el menú al hacer clic fuera
+            setTimeout(() => {
+                document.addEventListener('click', closeAllMenus);
+            }, 10);
+        }
+        
+        function closeAllMenus(e) {
+            // Si el clic no fue en un botón de descarga ni en el menú
+            if (!e.target.classList.contains('download-btn') && 
+                !e.target.closest('.download-options')) {
+                document.querySelectorAll('.download-options').forEach(menu => {
+                    menu.style.display = 'none';
+                });
+                document.removeEventListener('click', closeAllMenus);
+            }
+        }
+    </script>
+</body>
+</html>
